@@ -31,3 +31,27 @@ public class AlarmHelper {
         pi.cancel();
     }
 }
+
+public static void cancel(Context c, long id) {
+
+    AlarmManager am =
+            (AlarmManager) c.getSystemService(
+                    Context.ALARM_SERVICE
+            );
+
+    Intent i =
+            new Intent(c, ReminderReceiver.class)
+                    .putExtra("id", id);
+
+    PendingIntent pi =
+            PendingIntent.getBroadcast(
+                    c,
+                    (int)(id & 0x7fffffff),
+                    i,
+                    PendingIntent.FLAG_UPDATE_CURRENT |
+                    PendingIntent.FLAG_IMMUTABLE
+            );
+
+    am.cancel(pi);
+    pi.cancel();
+}
