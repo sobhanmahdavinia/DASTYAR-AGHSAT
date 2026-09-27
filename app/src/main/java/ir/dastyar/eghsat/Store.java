@@ -48,3 +48,15 @@ public class Store {
         saveAll(c, list);
     }
 }
+
+public static void delete(Context c, long id) {
+    List<Installment> list = all(c);
+
+    list.removeIf(x -> x.id == id);
+
+    saveAll(c, list);
+}
+
+public static void deleteAll(Context c) {
+    saveAll(c, new ArrayList<>());
+}
